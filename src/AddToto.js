@@ -1,15 +1,26 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
 
 export const AddTodo = ({ onSubmit }) => {
+  const [value, setValue] = useState('');
 
   const onPressHandler = () => {
-    onSubmit('test todo');
+    if (value.trim()) {
+      onSubmit(value);
+      setValue('');
+    } else {
+      Alert.alert('Empty input');
+    }
   }
 
   return (
     <View style={styles.block}>
-      <TextInput style={styles.input}/>
+      <TextInput
+        style={styles.input}
+        onChangeText={setValue}
+        value={value}
+        placeholder="Input text here"
+      />
       <Button title="Add" onPress={onPressHandler}/>
     </View>
   )
