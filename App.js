@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
 
 import { Navbar } from "./src/Navbar";
 import { AddTodo } from "./src/AddToto";
@@ -25,11 +25,12 @@ export default function App() {
       <Navbar title="Todo App"/>
       <View style={styles.container}>
         <AddTodo onSubmit={addTodo}/>
-        <View>
-          { todos.map(todoItem => (
-              <Todo todo={todoItem} key={todoItem.id}/>
-          ))}
-        </View>
+
+        <FlatList
+          data={todos}
+          renderItem={({item}) => <Todo todo={item} />}
+          keyExtractor={item => item.id}
+        />
       </View>
     </View>
   );
