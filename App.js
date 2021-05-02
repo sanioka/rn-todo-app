@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, FlatList, Alert } from 'react-native';
 
 import { Navbar } from "./src/components/Navbar";
 import { MainScreen } from "./src/screens/MainScreen";
@@ -28,7 +28,25 @@ export default function App() {
   }
 
   const removeTodo = id => {
-    setTodos(prev => prev.filter(todo => todo.id !== id))
+    const todoItem = todos.find(item => item.id === id)
+
+    Alert.alert(
+      'Delete todo',
+      `Are you sure to delete\n${todoItem.title}?`,
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Delete", onPress: () => {
+            setTodoID(null);
+            setTodos(prev => prev.filter(todo => todo.id !== id))
+          }
+        },
+      ],
+      { cancelable: false },
+    );
   }
 
   let content = <MainScreen
@@ -41,6 +59,7 @@ export default function App() {
   if (todoId) {
     // const selectedTodo = ;
     content = <TodoScreen
+      onRemove={removeTodo}
       goBack={() => { setTodoID(null) }}
       todo={todos.find(todoItem => todoItem.id === todoId)}
     />
