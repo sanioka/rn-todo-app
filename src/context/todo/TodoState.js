@@ -39,17 +39,25 @@ export const TodoState = ({ children }) => {
 
   const fetchTodos = async () => {
     showLoader();
+    clearError();
+    try {
+      const response = await fetch(
+        'https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json',
+        {
+          method: 'GET',
+          headers: {'Content-type': 'application/json'},
+        }
+      )
 
-    const response = await fetch('https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json', {
-      method: 'GET',
-      headers: {'Content-type': 'application/json'},
-    })
-    const data = await response.json();
-    const todos = Object.keys(data).map(key => ({ ...data[key], id: key }));
+      const data = await response.json();
+      const todos = Object.keys(data).map(key => ({ ...data[key], id: key }));
 
-   dispatch({type: FETCH_TODOS, todos});
-
-   hideLoader();
+      dispatch({type: FETCH_TODOS, todos});
+    } catch (e) {
+      showError(`Error fetch data:\n${e}`);
+    } finally {
+      hideLoader();
+    }
   }
 
   const removeTodo = id => {
