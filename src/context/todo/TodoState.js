@@ -13,6 +13,7 @@ import {
 } from "../types";
 import { ScreenContext } from "../screen/screenContext";
 import { Alert } from "react-native";
+import { FIREBASE_URL, Http } from "../../http";
 
 export const TodoState = ({ children }) => {
   const initialState = {
@@ -28,28 +29,20 @@ export const TodoState = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
   const addTodo = async title => {
-    const response = await fetch('https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json', {
-      method: 'POST',
-      headers: {'Content-type': 'application/json'},
-      body: JSON.stringify({title}),
-    })
-    const data = await response.json();
-    dispatch({type: ADD_TODO, title, id: data.name});
+    clearError();
+    try {
+      const data = await Http.post(`${FIREBASE_URL}/todos.json`,{ title });
+      dispatch({type: ADD_TODO, title, id: data.name});
+    } catch(e) {
+      showError(e);
+    }
   }
 
   const fetchTodos = async () => {
     showLoader();
     clearError();
     try {
-      const response = await fetch(
-        'https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json',
-        {
-          method: 'GET',
-          headers: {'Content-type': 'application/json'},
-        }
-      )
-
-      const data = await response.json();
+      const data = await Http.get(`${FIREBASE_URL}/todos.json`);
       const todos = Object.keys(data).map(key => ({ ...data[key], id: key }));
 
       dispatch({type: FETCH_TODOS, todos});
@@ -73,8 +66,9 @@ export const TodoState = ({ children }) => {
         },
         {
           text: "Delete",
-          onPress: () => {
+          onPress: async () => {
             changeScreen(null); // very strange workaround
+            await Http.delete(`${FIREBASE_URL}/todos/${id}.json`);
             dispatch({type: REMOVE_TODO, id});
           },
           style: 'destructive',
@@ -87,14 +81,7 @@ export const TodoState = ({ children }) => {
     clearError();
 
     try {
-      await fetch(
-        `https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos/${id}.json`,
-        {
-          method: 'PATCH',
-          headers: {'Content-type': 'application/json'},
-          body: JSON.stringify({ title }),
-        }
-      )
+      await Http.patch(`${FIREBASE_URL}/todos/${id}.json`,{ title })
       dispatch({type: UPDATE_TODO, id, title})
     } catch(e) {
       showError(`Error edit data:\n${e}`);
