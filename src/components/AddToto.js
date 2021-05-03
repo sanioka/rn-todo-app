@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View, StyleSheet, TextInput, Button, Alert, Keyboard } from 'react-native';
 import { THEME } from "../theme";
 import { Entypo } from '@expo/vector-icons';
 
@@ -10,6 +10,7 @@ export const AddTodo = ({ onSubmit }) => {
     if (value.trim()) {
       onSubmit(value);
       setValue('');
+      Keyboard.dismiss(); // close keyboard
     } else {
       Alert.alert('Empty input');
     }
