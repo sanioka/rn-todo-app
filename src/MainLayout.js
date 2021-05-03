@@ -9,37 +9,7 @@ import { TodoContext } from "./context/todo/todoContext";
 import { ScreenContext } from "./context/screen/screenContext";
 
 export const MainLayout = (props) => {
-  // const { todos, addTodo, removeTodo, updateTodo } = useContext(TodoContext);
-  const { todoId, changeScreen } = useContext(ScreenContext);
-
-  // const removeTodo = id => {
-  //   const todoItem = todos.find(item => item.id === id)
-  //
-  //   Alert.alert(
-  //     'Delete todo',
-  //     `Are you sure to delete\n${todoItem.title}?`,
-  //     [
-  //       {
-  //         text: "Cancel",
-  //         style: "cancel"
-  //       },
-  //       {
-  //         text: "Delete", onPress: () => {
-  //           setTodoID(null);
-  //           setTodos(prev => prev.filter(todo => todo.id !== id))
-  //         }
-  //       },
-  //     ],
-  //     { cancelable: false },
-  //   );
-  // }
-
-      // onRemove={removeTodo}
-      // goBack={() => { changeScreen(null) }}
-      // onSave={updateTodo}
-      // todo={todos.find(todoItem => todoItem.id === todoId)}
-    // >
-
+  const { todoId } = useContext(ScreenContext);
 
   return (
     <View>
