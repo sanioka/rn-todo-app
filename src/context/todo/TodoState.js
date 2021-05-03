@@ -1,7 +1,8 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useContext } from 'react';
 import { TodoContext } from "./todoContext";
 import { todoReducer } from "./todoReducer";
 import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from "../types";
+import { ScreenContext } from "../screen/screenContext";
 
 export const TodoState = ({ children }) => {
   const initialState = {
@@ -9,10 +10,14 @@ export const TodoState = ({ children }) => {
       {id: '1', title: 'Выучить React Native'},
     ],
   }
+  const { changeScreen } = useContext(ScreenContext);
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
   const addTodo = title => dispatch({type: ADD_TODO, title});
-  const removeTodo = id => dispatch({type: REMOVE_TODO, id});
+  const removeTodo = id => {
+    changeScreen(null); // very strange workaround
+    dispatch({type: REMOVE_TODO, id});
+  }
   const updateTodo = (id, title) => dispatch({type: UPDATE_TODO, id, title});
 
 
