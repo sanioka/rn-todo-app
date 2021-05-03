@@ -20,8 +20,8 @@ export const TodoScreen = () => {
 
   const [isVisibleModal, setVisibleModal] = useState(false);
 
-  const saveHandler = (title) => {
-    updateTodo(todo.id, title);
+  const saveHandler = async (title) => {
+    await updateTodo(todo.id, title);
     setVisibleModal(false);
   }
 

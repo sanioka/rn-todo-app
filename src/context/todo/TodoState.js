@@ -83,7 +83,23 @@ export const TodoState = ({ children }) => {
       { cancelable: false },
     );
   }
-  const updateTodo = (id, title) => dispatch({type: UPDATE_TODO, id, title});
+  const updateTodo = async (id, title) => {
+    clearError();
+
+    try {
+      await fetch(
+        `https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos/${id}.json`,
+        {
+          method: 'PATCH',
+          headers: {'Content-type': 'application/json'},
+          body: JSON.stringify({ title }),
+        }
+      )
+      dispatch({type: UPDATE_TODO, id, title})
+    } catch(e) {
+      showError(`Error edit data:\n${e}`);
+    }
+  };
 
   const showLoader = () => dispatch({ type: SHOW_LOADER });
   const hideLoader = () => dispatch({ type: HIDE_LOADER });
