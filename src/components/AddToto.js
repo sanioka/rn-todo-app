@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Button, Alert } from 'react-native';
 import { THEME } from "../theme";
+import { Entypo } from '@expo/vector-icons';
 
 export const AddTodo = ({ onSubmit }) => {
   const [value, setValue] = useState('');
@@ -24,7 +25,9 @@ export const AddTodo = ({ onSubmit }) => {
         autoCorrect={false}
         autoCapitalize='none'
       />
-      <Button title="Add" onPress={onPressHandler}/>
+      <Entypo.Button name="add-to-list" size={24} color="white" title="Add" onPress={onPressHandler}>
+        Add
+      </Entypo.Button>
     </View>
   )
 }
@@ -37,7 +40,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   input: {
-    width: '80%',
+    width: '75%',
     padding: 10,
     borderStyle: 'solid',
     borderBottomWidth: 2,
