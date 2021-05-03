@@ -1,7 +1,16 @@
 import React, { useReducer, useContext } from 'react';
 import { TodoContext } from "./todoContext";
 import { todoReducer } from "./todoReducer";
-import { ADD_TODO, CLEAR_ERROR, HIDE_LOADER, REMOVE_TODO, SHOW_ERROR, SHOW_LOADER, UPDATE_TODO } from "../types";
+import {
+  ADD_TODO,
+  CLEAR_ERROR,
+  FETCH_TODOS,
+  HIDE_LOADER,
+  REMOVE_TODO,
+  SHOW_ERROR,
+  SHOW_LOADER,
+  UPDATE_TODO
+} from "../types";
 import { ScreenContext } from "../screen/screenContext";
 import { Alert } from "react-native";
 
@@ -19,13 +28,24 @@ export const TodoState = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
   const addTodo = async title => {
-    const responce = await fetch('https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json', {
+    const response = await fetch('https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json', {
       method: 'POST',
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify({title}),
     })
-    const data = await responce.json();
+    const data = await response.json();
     dispatch({type: ADD_TODO, title, id: data.name});
+  }
+
+  const fetchTodos = async () => {
+    const response = await fetch('https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json', {
+      method: 'GET',
+      headers: {'Content-type': 'application/json'},
+    })
+    const data = await response.json();
+    const todos = Object.keys(data).map(key => ({ ...data[key], id: key }));
+
+    setTimeout(() => dispatch({type: FETCH_TODOS, todos}), 5000);
   }
 
   const removeTodo = id => {
@@ -63,9 +83,12 @@ export const TodoState = ({ children }) => {
     <TodoContext.Provider
       value={{ // export
         todos: state.todos,
+        loading: state.loading,
+        error: state.error,
         addTodo,
         removeTodo,
         updateTodo,
+        fetchTodos,
       }}
     >
       {children}
