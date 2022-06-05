@@ -1,0 +1,1 @@
+./ui folder == here will be simple UI components without logic and states

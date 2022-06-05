@@ -22,7 +22,8 @@ export const AddTodo = ({ onSubmit }) => {
         style={styles.input}
         onChangeText={setValue}
         value={value}
-        placeholder="Input text here"
+        placeholder="Input todo here"
+        placeholderTextColor={THEME.GRAY_COLOR}
         autoCorrect={false}
         autoCapitalize='none'
       />

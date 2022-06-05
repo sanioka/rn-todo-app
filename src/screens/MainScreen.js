@@ -42,14 +42,14 @@ export const MainScreen = () => {
   }
 
   if (error) {
-    return <View style={styles.center}>
+    return <View style={styles.errorContainer}>
       <AppText style={styles.error}>{error}</AppText>
       <AppButton onPress={loadTodos}>Retry</AppButton>
     </View>
   }
 
   let content = (
-    <View style={{width: deviceWidth}}>
+    <View style={{width: deviceWidth, height: '100%'}}>
       <FlatList
         data={todos}
         renderItem={({item}) => <Todo todo={item} onRemove={removeTodo} onOpen={changeScreen}/>}
@@ -88,8 +88,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingBottom: 50,
+  },
   error: {
     color: THEME.DANGER_COLOR,
     fontSize: 18,
-  }
+  },
 })

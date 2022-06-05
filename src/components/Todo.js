@@ -1,13 +1,19 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { AppText } from "./ui/AppText";
+import * as Haptics from 'expo-haptics';
 
 export const Todo = ({ todo, onRemove, onOpen }) => {
+  const longPressHandler = async () => {
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    onRemove(todo.id);
+  }
+
   return (
     <TouchableOpacity
       activeOpacity={0.5}
       onPress={() => onOpen(todo.id)}
-      onLongPress={() => onRemove(todo.id)}
+      onLongPress={() => longPressHandler()}
     >
       <View style={styles.todo}>
         <AppText>{todo.title}</AppText>

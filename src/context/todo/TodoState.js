@@ -42,12 +42,19 @@ export const TodoState = ({ children }) => {
     showLoader();
     clearError();
     try {
+      // throw new Error('Error example 1 2 3');
+
       const data = await Http.get(`${FIREBASE_URL}/todos.json`);
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
       const todos = Object.keys(data).map(key => ({ ...data[key], id: key }));
 
       dispatch({type: FETCH_TODOS, todos});
     } catch (e) {
-      showError(`Error fetch data:\n${e}`);
+      showError(`⚠️ Firebase fetch todos issue:\n${e}`);
     } finally {
       hideLoader();
     }
@@ -77,6 +84,7 @@ export const TodoState = ({ children }) => {
       { cancelable: false },
     );
   }
+
   const updateTodo = async (id, title) => {
     clearError();
 

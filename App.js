@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { StatusBar } from 'expo-status-bar';
+
 import * as Font from 'expo-font';
 import { View } from 'react-native';
 
@@ -59,6 +61,7 @@ export default function App() {
           <MainLayout />
         </TodoState>
       </ScreenState>
+      <StatusBar style="dark"/>
     </View>
   );
 }

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   subtitleText: {
     fontSize: 13,
-    color: Platform.OS === 'ios' ? 'gray' : '#dedede',
+    color: Platform.OS === 'ios' ? THEME.GRAY_COLOR : '#dedede',
     paddingTop: 5,
   }
 })
