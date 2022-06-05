@@ -1,37 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import * as Font from 'expo-font';
+import { View } from 'react-native';
 
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
 
 import { MainLayout } from "./src/MainLayout";
 import { TodoState } from "./src/context/todo/TodoState";
 import { ScreenState } from "./src/context/screen/ScreenState";
 
-async function loadApplication() {
-  await Font.loadAsync({
-    'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
-    'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
-  })
-}
-
 export default function App() {
   const [isReady, setIsReady] = useState(false)
 
+  useEffect(() => {
+    async function prepare() {
+      try {
+        // Keep the splash screen visible while we fetch resources
+        await SplashScreen.preventAutoHideAsync();
+
+        // Pre-load fonts, make any API calls you need to do here
+        await Font.loadAsync({
+          'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
+          'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
+        })
+
+        // Artificially delay for two seconds to simulate a slow loading
+        // experience. Please remove this if you copy and paste the code!
+        // await new Promise(resolve => setTimeout(resolve, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        // Tell the application to render
+        setIsReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (isReady) {
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setIsReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout.
+      await SplashScreen.hideAsync();
+    }
+  }, [isReady]);
+
   if (!isReady) {
-    return (
-      <AppLoading
-        startAsync={loadApplication}
-        onError={err => console.log(err)}
-        onFinish={() => setIsReady(true)}
-      />
-    )
+    return null;
   }
 
   return (
-    <ScreenState>
-      <TodoState>
-        <MainLayout />
-      </TodoState>
-    </ScreenState>
+    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+      <ScreenState>
+        <TodoState>
+          <MainLayout />
+        </TodoState>
+      </ScreenState>
+    </View>
   );
 }
