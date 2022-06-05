@@ -1,15 +1,25 @@
 import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { THEME } from '../theme';
 import { AppTextBold } from "./ui/AppTextBold";
 
-export const Navbar = ({ title }) => {
+/**
+ * External usage:
+ * <Navbar title="Todo App"/>
+ *
+ * @param title
+ * @param subtitle
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const Navbar = ({ title, subtitle }) => {
   return (
     <View style={{...styles.navbar, ...Platform.select({
         ios: styles.navbarIos,
         android: styles.navbarAndroid,
       })}}>
       <AppTextBold style={styles.text}>{title}</AppTextBold>
+      <Text style={styles.subtitleText}>{subtitle}</Text>
     </View>
   )
 }
@@ -21,16 +31,21 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   navbarAndroid: {
-    height: 70,
+    height: 100,
     backgroundColor: THEME.MAIN_COLOR,
   },
   navbarIos: {
-    height: 100,
+    height: 110,
     borderBottomColor: THEME.MAIN_COLOR,
     borderBottomWidth: 1,
   },
   text: {
     color: Platform.OS === 'ios' ? THEME.MAIN_COLOR : 'white',
     fontSize: 18,
+  },
+  subtitleText: {
+    fontSize: 13,
+    color: Platform.OS === 'ios' ? 'gray' : '#dedede',
+    paddingTop: 5,
   }
 })

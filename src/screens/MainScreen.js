@@ -29,11 +29,11 @@ export const MainScreen = () => {
       const newWidth = Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2;
       setDeviceWidth(newWidth);
     }
-    Dimensions.addEventListener('change', changeHandler);
+    const eventListener = Dimensions.addEventListener('change', changeHandler);
 
     // onDestroy
     return () => {
-      Dimensions.removeEventListener('change', changeHandler)
+      eventListener.remove();
     };
   })
 

@@ -13,7 +13,7 @@ export const MainLayout = (props) => {
 
   return (
     <View style={styles.wrapper}>
-      <Navbar title="Todo App"/>
+      <Navbar title="Todo App" subtitle="React Native Udemy Course by Vladilen Minin"/>
       <View style={styles.container}>
         { todoId ? <TodoScreen/> : <MainScreen/> }
       </View>
