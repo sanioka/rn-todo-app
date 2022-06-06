@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { StyleSheet, View, Button, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
 
 import { THEME } from "../theme";
@@ -13,9 +13,9 @@ import { TodoContext } from "../context/todo/todoContext";
 
 export const TodoScreen = () => {
   const { todos, removeTodo, updateTodo } = useContext(TodoContext);
-  const { todoId, changeScreen } = useContext(ScreenContext);
+  const { navigationTodoId, changeScreenNavigation } = useContext(ScreenContext);
 
-  const todo = todos.find(item => item.id === todoId);
+  const todo = todos.find(item => item.id === navigationTodoId);
 
   const [isVisibleModal, setVisibleModal] = useState(false);
 
@@ -42,7 +42,7 @@ export const TodoScreen = () => {
 
       <View style={styles.buttonContainer}>
         <View style={styles.button}>
-          <AppButton title='Back' onPress={() => changeScreen(null)} color={THEME.GRAY_COLOR}>
+          <AppButton title='Back' onPress={() => changeScreenNavigation(null)} color={THEME.GRAY_COLOR}>
             <AntDesign name='back' size={20} color='#fff'/>
           </AppButton>
         </View>

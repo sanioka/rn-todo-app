@@ -4,11 +4,11 @@ import { screenReducer } from "./screenReducer";
 import { CHANGE_SCREEN } from "../types";
 
 export const ScreenState = ({ children }) => {
-  // It's toggler between MainScreen (state === null) and TodoScreen (state === todoid).
+  // It's toggler between MainScreen (navigationTodoId === null) and TodoScreen (navigationTodoId !== null).
   const initialState = null;
-  const [state, dispatch] = useReducer(screenReducer, initialState);
+  const [navigationTodoId, dispatch] = useReducer(screenReducer, initialState);
 
-  const changeScreen = id => dispatch({type: CHANGE_SCREEN, payload: id});
+  const changeScreenNavigation = todoId => dispatch({type: CHANGE_SCREEN, navigationTodoId: todoId});
 
-  return <ScreenContext.Provider value={{changeScreen, todoId: state}}>{children}</ScreenContext.Provider>
+  return <ScreenContext.Provider value={{changeScreenNavigation, navigationTodoId}}>{children}</ScreenContext.Provider>
 }

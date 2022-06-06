@@ -25,7 +25,7 @@ export const TodoState = ({ children }) => {
     loading: false,
     error: null,
   }
-  const { changeScreen } = useContext(ScreenContext);
+  const { changeScreenNavigation } = useContext(ScreenContext);
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
   const addTodo = async title => {
@@ -72,7 +72,7 @@ export const TodoState = ({ children }) => {
         {
           text: "Delete",
           onPress: async () => {
-            changeScreen(null); // very strange workaround
+            changeScreenNavigation(null); // workaround to avoid rendering error
             await HttpService.delete(`${FIREBASE_URL}/todos/${id}.json`);
             dispatch({type: REMOVE_TODO, id});
           },

@@ -8,13 +8,13 @@ import { TodoScreen } from "./screens/TodoScreen";
 import { ScreenContext } from "./context/screen/screenContext";
 
 export const MainLayout = () => {
-  const { todoId } = useContext(ScreenContext);
+  const { navigationTodoId } = useContext(ScreenContext);
 
   return (
     <View style={styles.wrapper}>
       <Navbar title="Todo App" subtitle="React Native Udemy Course by Vladilen Minin"/>
       <View style={styles.container}>
-        { todoId ? <TodoScreen/> : <MainScreen/> }
+        { navigationTodoId ? <TodoScreen/> : <MainScreen/> }
       </View>
     </View>
   )
