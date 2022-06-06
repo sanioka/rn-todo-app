@@ -1,6 +1,6 @@
 export const FIREBASE_URL = 'https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app'
 
-export class Http {
+export class HttpService {
   static HEADERS = {'Content-type': 'application/json'}
 
   static async get(url) {
@@ -40,7 +40,7 @@ export class Http {
 async function request(url, method = 'GET', data) {
   const config = {
     method,
-    headers: Http.HEADERS,
+    headers: HttpService.HEADERS,
   }
 
   if (method === 'POST' || method === 'PATCH') {

@@ -13,7 +13,7 @@ import {
 } from "../types";
 import { ScreenContext } from "../screen/screenContext";
 import { Alert } from "react-native";
-import { FIREBASE_URL, Http } from "../../http";
+import { FIREBASE_URL, HttpService } from "../../service/http.service";
 
 export const TodoState = ({ children }) => {
   const initialState = {
@@ -31,7 +31,7 @@ export const TodoState = ({ children }) => {
   const addTodo = async title => {
     clearError();
     try {
-      const data = await Http.post(`${FIREBASE_URL}/todos.json`,{ title });
+      const data = await HttpService.post(`${FIREBASE_URL}/todos.json`,{ title });
       dispatch({type: ADD_TODO, title, id: data.name});
     } catch(e) {
       showError(e);
@@ -42,9 +42,7 @@ export const TodoState = ({ children }) => {
     showLoader();
     clearError();
     try {
-      // throw new Error('Error example 1 2 3');
-
-      const data = await Http.get(`${FIREBASE_URL}/todos.json`) || [];
+      const data = await HttpService.get(`${FIREBASE_URL}/todos.json`) || [];
 
       if (data.error) {
         throw new Error(data.error);
@@ -75,7 +73,7 @@ export const TodoState = ({ children }) => {
           text: "Delete",
           onPress: async () => {
             changeScreen(null); // very strange workaround
-            await Http.delete(`${FIREBASE_URL}/todos/${id}.json`);
+            await HttpService.delete(`${FIREBASE_URL}/todos/${id}.json`);
             dispatch({type: REMOVE_TODO, id});
           },
           style: 'destructive',
@@ -89,16 +87,16 @@ export const TodoState = ({ children }) => {
     clearError();
 
     try {
-      await Http.patch(`${FIREBASE_URL}/todos/${id}.json`,{ title })
+      await HttpService.patch(`${FIREBASE_URL}/todos/${id}.json`,{ title })
       dispatch({type: UPDATE_TODO, id, title})
     } catch(e) {
       showError(`Error edit data:\n${e}`);
     }
   };
 
+  // Private methods only for this scope
   const showLoader = () => dispatch({ type: SHOW_LOADER });
   const hideLoader = () => dispatch({ type: HIDE_LOADER });
-
   const showError = error => dispatch({ type: SHOW_ERROR, error });
   const clearError = () => dispatch({type: CLEAR_ERROR});
 

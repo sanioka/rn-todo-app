@@ -12,7 +12,6 @@ import { ScreenContext } from "../context/screen/screenContext";
 import { TodoContext } from "../context/todo/todoContext";
 
 export const TodoScreen = () => {
-
   const { todos, removeTodo, updateTodo } = useContext(TodoContext);
   const { todoId, changeScreen } = useContext(ScreenContext);
 
@@ -27,7 +26,6 @@ export const TodoScreen = () => {
 
   return (
     <View>
-
       <EditModal
         isVisible={isVisibleModal}
         onCancel={() => setVisibleModal(false)}

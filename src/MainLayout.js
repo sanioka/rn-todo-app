@@ -1,14 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { StyleSheet, View } from "react-native";
 import { Navbar } from "./components/Navbar";
 import { THEME } from "./theme";
 import { MainScreen } from "./screens/MainScreen";
 import { TodoScreen } from "./screens/TodoScreen";
-import { TodoContext } from "./context/todo/todoContext";
 import { ScreenContext } from "./context/screen/screenContext";
 
-export const MainLayout = (props) => {
+export const MainLayout = () => {
   const { todoId } = useContext(ScreenContext);
 
   return (

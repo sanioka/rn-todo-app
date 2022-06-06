@@ -18,7 +18,8 @@ export const MainScreen = () => {
     Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2
     );
 
-// TODO: learn how it works
+  // TODO: learn how it works (S06E55 course)
+  // To avoid redundant rendering and redundant adding of this method*
   const loadTodos = useCallback(async () => await fetchTodos(), [fetchTodos]);
   useEffect(() => {
     loadTodos();

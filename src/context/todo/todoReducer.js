@@ -9,6 +9,7 @@ import {
   UPDATE_TODO
 } from "../types";
 
+// () = ({}) its short way to return object
 const handlers = {
   [ADD_TODO]: (state, {title, id}) => ({
     ...state,
