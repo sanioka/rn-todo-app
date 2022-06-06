@@ -44,7 +44,7 @@ export const TodoState = ({ children }) => {
     try {
       // throw new Error('Error example 1 2 3');
 
-      const data = await Http.get(`${FIREBASE_URL}/todos.json`);
+      const data = await Http.get(`${FIREBASE_URL}/todos.json`) || [];
 
       if (data.error) {
         throw new Error(data.error);
