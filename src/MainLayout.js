@@ -12,7 +12,7 @@ export const MainLayout = () => {
 
   return (
     <View style={styles.wrapper}>
-      <Navbar title="Todo App" subtitle="React Native Udemy Course by Vladilen Minin"/>
+      <Navbar title="Todo App"/>
       <View style={styles.container}>
         { navigationTodoId ? <TodoScreen/> : <MainScreen/> }
       </View>
@@ -23,7 +23,7 @@ export const MainLayout = () => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: THEME.PADDING_HORIZONTAL,
-    paddingVertical: 20,
+    // paddingVertical: 20,
     flex: 1,
   },
   wrapper: {

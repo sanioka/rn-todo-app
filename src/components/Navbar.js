@@ -19,7 +19,6 @@ export const Navbar = ({ title, subtitle }) => {
         android: styles.navbarAndroid,
       })}}>
       <AppTextBold style={styles.text}>{title}</AppTextBold>
-      <Text style={styles.subtitleText}>{subtitle}</Text>
     </View>
   )
 }
@@ -31,21 +30,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   navbarAndroid: {
-    height: 100,
+    height: 95,
     backgroundColor: THEME.MAIN_COLOR,
+    marginBottom: 16,
   },
   navbarIos: {
-    height: 110,
-    borderBottomColor: THEME.MAIN_COLOR,
-    borderBottomWidth: 1,
+    height: 44 + 44, // user interface guideline
+    // borderBottomColor: THEME.MAIN_COLOR,
+    // borderBottomWidth: 1,
   },
   text: {
     color: Platform.OS === 'ios' ? THEME.MAIN_COLOR : 'white',
     fontSize: 18,
   },
-  subtitleText: {
-    fontSize: 13,
-    color: Platform.OS === 'ios' ? THEME.GRAY_COLOR : '#dedede',
-    paddingTop: 5,
-  }
 })

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { StyleSheet, View, FlatList, Image, Dimensions, Text, ScrollView } from "react-native";
+import { StyleSheet, View, FlatList, Image, Dimensions, Text, ScrollView, Platform } from "react-native";
 
 import { TodoContext } from "../context/todo/todoContext";
 import { ScreenContext } from "../context/screen/screenContext";
@@ -58,29 +58,34 @@ export const MainScreen = () => {
 
   // View when no any todos
   if (todos.length === 0) {
+    const image = require('../../assets/no-items-2.jpg');
     content = (
       <View style={styles.imageWrap}>
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-          <Image style={styles.image} source={require('../../assets/no-items.png')}/>
-          <Text style={styles.imageDescription}>No any todo...</Text>
+          <Image
+            style={styles.image}
+            source={Platform.OS === 'android' ? image : null}
+            defaultSource={Platform.OS === 'ios' ? image : null}/>
+          <Text style={styles.imageDescription}>Congratulations! No any todo...</Text>
         </ScrollView>
       </View>
     )
   } else {
     // View with some list of todos
     content = (
-      <View style={{width: deviceWidth, height: '100%'}}>
+      <View style={{width: deviceWidth, flex: 1}}>
         <FlatList
-          data={todos}
+          data={todos.reverse()}
           renderItem={({item}) => <Todo todo={item} onRemove={removeTodo} onOpen={changeScreenNavigation}/>}
           keyExtractor={item => item.id}
+          style={{paddingTop: 20}}
         />
       </View>
     )
   }
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <AddTodo onSubmit={addTodo}/>
       {content}
     </View>
@@ -91,14 +96,14 @@ const styles = StyleSheet.create({
   imageWrap: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
-    height: '100%',
+    flex: 1,
   },
   image: {
-    width: 300,
-    height: 300,
+    width: 200,
+    height: 200,
     resizeMode: 'contain',
-    opacity: 0.5,
+    opacity: 0.25,
+    marginTop: 20,
   },
   imageDescription: {
     color: 'gray',

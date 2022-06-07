@@ -26,8 +26,18 @@ export const AddTodo = ({ onSubmit }) => {
         placeholderTextColor={THEME.GRAY_COLOR}
         autoCorrect={false}
         autoCapitalize='none'
+        enablesReturnKeyAutomatically={true}
+        onSubmitEditing={onPressHandler}
       />
-      <Entypo.Button name="add-to-list" size={24} color="white" title="Add" onPress={onPressHandler}>
+      <Entypo.Button
+        name="add-to-list"
+        size={24}
+        color="white"
+        title="Add"
+        backgroundColor={THEME.MAIN_COLOR}
+        height={44}
+        width={85}
+        onPress={onPressHandler}>
         Add
       </Entypo.Button>
     </View>
@@ -39,13 +49,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 15,
+    height: 44, // user interface guideline
   },
   input: {
-    width: '75%',
-    padding: 10,
+    flex: 1,
+    marginRight: 16,
+    paddingVertical: 10,
     borderStyle: 'solid',
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: THEME.MAIN_COLOR,
   },
 })

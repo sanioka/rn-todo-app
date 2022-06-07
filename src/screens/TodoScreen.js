@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions, Text } from "react-native";
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
 
 import { THEME } from "../theme";
@@ -52,6 +52,15 @@ export const TodoScreen = () => {
           </AppButton>
         </View>
       </View>
+
+      <View style={styles.descriptionContainer}>
+        <Text style={styles.descriptionText}>
+          React Native Udemy Course by Vladilen Minin.
+        </Text>
+        <Text style={styles.descriptionText}>
+          It's still original course design here...
+        </Text>
+      </View>
     </View>
   )
 }
@@ -70,6 +79,13 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 20,
     padding: 15,
+  },
+  descriptionContainer: {
+    paddingTop: 40,
+    alignItems: 'center',
+  },
+  descriptionText: {
+    color: 'gray',
   }
 })
 
