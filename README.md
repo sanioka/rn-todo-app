@@ -1,6 +1,12 @@
 # rn-todo-app
 
-// img preview
+| <img src="./images/preview-ios.png" alt="ToDo App / Preview" width="20%"/> | <img src="./images/preview-android.png" alt="ToDo App / Preview" width="20%"/> |
+
+Prototypes:
+
+| <img src="./images/prototype-part1.png" alt="Prototype part1 / Preview" width="20%"/> | <img src="./images/prototype-part2.png" alt="Prototype part2 / Preview" width="20%"/> |
+
+<br>
 
 ### How to build project
 
