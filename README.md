@@ -10,25 +10,7 @@ Prototypes:
 
 ### How to build project
 
-⚽️ Prepare expo environment by https://docs.expo.dev/get-started/installation/
-
-⚽️ `npm install`
-
-⚽️ `expo start` or `npm start`
-
-⚽️ Install Expo app to mobile phone.
-
-⚽️ Scan the QR code above with Expo Go (Android) or the Camera app (iOS)
-
-<br>
-
-### Upgrading Expo SDK
-
-https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
-
-`npm i -g expo-cli`
-
-`expo upgrade`
+https://github.com/sanioka/rn-common
 
 <br>
 
@@ -40,7 +22,11 @@ It was made specifically to practice with React useState / useContext: `{ todoId
 
 ⚠️ Used Firebase backend https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json
 
-### Сourse author
+<br>
+
+### Course author
 
 @Vladilen Minin<br>
 https://www.udemy.com/course/react-native-complete-guide/
+
+(c) 2021
