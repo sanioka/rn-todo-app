@@ -16,11 +16,11 @@ https://github.com/sanioka/rn-common
 
 ### Notes
 
-⚠️ This course app didn't used React Navigation between screens.
+⚠️ This course app didn't used React Navigation between screens.  It was made specifically to practice with React useState / useContext:<br>
+`{ todoId ? <TodoScreen/> : <MainScreen/> }`
 
-It was made specifically to practice with React useState / useContext: `{ todoId ? <TodoScreen/> : <MainScreen/> }`
-
-⚠️ Used Firebase backend https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json
+⚠️ Used Firebase backend<br>
+https://rn-todo-app-1f784-default-rtdb.europe-west1.firebasedatabase.app/todos.json
 
 <br>
 
