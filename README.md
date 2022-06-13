@@ -29,4 +29,4 @@ It was made specifically to practice with React useState / useContext: `{ todoId
 @Vladilen Minin<br>
 https://www.udemy.com/course/react-native-complete-guide/
 
-(c) 2021
+<br>
